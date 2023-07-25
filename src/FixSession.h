@@ -23,7 +23,7 @@ public:
 	static void Initialize();
 	static NAN_METHOD(New);
 	void setSession(FIX::Session* session);
-	static Handle<Object> wrapFixSession(FIX::Session *session);
+	static Local<Object> wrapFixSession(FIX::Session *session);
 
 private:
 	virtual ~FixSession();
@@ -43,8 +43,8 @@ private:
 
 	static NAN_GETTER(getTargetSeqNum);
 	static NAN_SETTER(setTargetSeqNum);
-	
-	
+
+
 };
 
 #endif /* FIXSESSION_H_ */

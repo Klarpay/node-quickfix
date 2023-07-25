@@ -17,14 +17,14 @@ class FixLoginResponse : public Nan::ObjectWrap {
 public:
 	FixLoginResponse();
 	virtual ~FixLoginResponse();
-	static void Initialize(Handle<Object> target);
+	static void Initialize(Local<Object> target);
 	static NAN_METHOD(New);
 	bool getIsFinished();
 	bool getIsLoggedOn();
 	void setIsFinished(bool isFinished);
 	void setIsLoggedOn(bool isLoggedOn);
 	static void close(FixLoginResponse* fixLoginResponse);
-	static Handle<Object> wrapFixLoginResponse(FixLoginResponse* fixLoginResponse);
+	static Local<Object> wrapFixLoginResponse(FixLoginResponse* fixLoginResponse);
 
 private:
 	bool isFinished = false;

@@ -47,9 +47,10 @@
         ]
       },
       'include_dirs': [
-        "<!(node -e \"require('nan')\")",
+        "/Users/sergeykuleshov/tmp/sucden/node_modules/nan",
         '/usr/local/include',
-        '/usr/local/include/quickfix'
+        '/usr/local/include/quickfix',
+        '/opt/homebrew/Cellar/boost/1.80.0/include'
       ],
       'direct_dependent_settings': {
         'include_dirs': ['src']

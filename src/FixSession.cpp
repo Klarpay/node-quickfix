@@ -123,7 +123,7 @@ void FixSession::Initialize() {
 	g_Ctor.Reset(ctor->GetFunction());
 }
 
-Handle<Object> FixSession::wrapFixSession(FIX::Session *session) {
+Local<Object> FixSession::wrapFixSession(FIX::Session *session) {
 	Nan::EscapableHandleScope scope;
     FixSession* fs = new FixSession();
     fs->setSession(session);
@@ -168,7 +168,7 @@ NAN_METHOD(FixSession::getSessionID) {
 
 	FixSession* instance = Nan::ObjectWrap::Unwrap<FixSession>(info.Holder());
 	FIX::SessionID sessionId = instance->mSession->getSessionID();
-	Handle<Value> jsSessionId = FixMessageUtil::sessionIdToJs(&sessionId);
+	Local<Value> jsSessionId = FixMessageUtil::sessionIdToJs(&sessionId);
 
 	info.GetReturnValue().Set(jsSessionId);
 }
