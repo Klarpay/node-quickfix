@@ -10,7 +10,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - run: sudo apt-get install -y libquickfix-dev
+      - run: sudo apt-get install -y libquickfix-dev clang libboost1.81-all-dev
       - uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
@@ -19,6 +19,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@klarpay'
       - run: npm install --build-from-source
+        env:
+          CXX: clang++
       - run: npx node-pre-gyp package publish
   mac:
     runs-on: macos-latest
@@ -28,9 +30,7 @@ jobs:
     steps:
       - run: brew install boost automake
       - run: curl https://github.com/quickfix/quickfix/archive/refs/tags/v1.15.1.tar.gz  -L | tar xz
-      - run: cd quickfix-1.15.1 && ./bootstrap && ./configure --with-boost=$(brew --prefix boost)/include/ && make && sudo make install
-        env:
-          CXXFLAGS: -DENABLE_BOOST_ATOMIC_COUNT=1 -I/opt/homebrew/opt/boost/include/
+      - run: cd quickfix-1.15.1 && ./bootstrap && ./configure --with-boost=$(brew --prefix boost)/include/ && make CXXFLAGS="-DENABLE_BOOST_ATOMIC_COUNT=1 -I$(brew --prefix boost)/include/" && sudo make install
       - uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
