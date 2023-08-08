@@ -2,6 +2,7 @@ name: Publish binaries
 on:
   release:
     types: [created]
+  workflow_dispatch:
 jobs:
   linux:
     runs-on: ubuntu-latest
