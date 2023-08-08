@@ -20,7 +20,7 @@
 #include "quickfix/MessageStore.h"
 #include "quickfix/FileStore.h"
 #include "quickfix/FileLog.h"
-#include "quickfix/config.h"
+// #include "quickfix/config.h"
 #ifdef HAVE_POSTGRESQL
 #include "quickfix/PostgreSQLStore.h"
 #include "quickfix/PostgreSQLLog.h"

@@ -47,29 +47,47 @@
         ]
       },
       'include_dirs': [
-        "/Users/sergeykuleshov/tmp/sucden/node_modules/nan",
+        "<!(node -e \"require('nan')\")",
         '/usr/local/include',
+        '/usr/include',
         '/usr/local/include/quickfix',
-        '/opt/homebrew/Cellar/boost/1.80.0/include'
+        '/usr/include/quickfix',
+        '/opt/homebrew/Cellar/boost/1.82.0_1/include'
       ],
       'direct_dependent_settings': {
         'include_dirs': ['src']
       },
-      'cflags': [ '-fexceptions', '-std=c++11' ],
-      'cflags!': ['-fno-exceptions', '-fno-rtti'],
-      'cflags_cc': [ '-fexceptions' ],
-      'cflags_cc!': [ '-fno-exceptions', '-fno-rtti' ],
-      'conditions': [
-        ['OS=="mac"', {
-          'xcode_settings': {
-            'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
-            'GCC_ENABLE_CPP_RTTI': 'YES',
-	    'OTHER_LDFLAGS': [
-              '-undefined dynamic_lookup'
-            ],
-            "OTHER_CFLAGS": ["-mmacosx-version-min=10.7", "-stdlib=libc++"]
-          }
-        }]
+      'cflags_cc': [
+        "-std=c++17",
+        "-fexceptions",
+        "-fcxx-exceptions",
+        "-D_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES",
+        "-DENABLE_BOOST_ATOMIC_COUNT",
+        "-Wno-dynamic-exception-spec",
+        "-fcxx-exceptions"
+      ],
+      'cflags_cc!': ['-fno-exceptions', '-fno-rtti', '-std=gnu++17'],
+      'xcode_settings': {
+        'OTHER_CFLAGS': [
+          "-std=c++17",
+          "-stdlib=libc++",
+          "-fexceptions",
+          "-fcxx-exceptions",
+          "-D_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES",
+          "-Wno-dynamic-exception-spec",
+          "-mmacosx-version-min=13",
+        ],
+      }
+    },
+    {
+      "target_name": "action_after_build",
+      "type": "none",
+      "dependencies": [ "<(module_name)" ],
+      "copies": [
+        {
+          "files": [ "<(PRODUCT_DIR)/<(module_name).node" ],
+          "destination": "<(module_path)"
+        }
       ]
     }
   ]

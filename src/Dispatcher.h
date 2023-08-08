@@ -43,12 +43,12 @@ class Dispatcher {
 
             Local<String> eventName = Nan::New<String>(event->eventName.c_str()).ToLocalChecked();
             Local<Object> callbackObj = Nan::New(*event->callbacks);
-            Local<Function> callback = Local<Function>::Cast(callbackObj->Get(eventName));
+            Local<Function> callback = Local<Function>::Cast(callbackObj->Get(v8::Isolate::GetCurrent()->GetCurrentContext(), eventName).ToLocalChecked());
 
             std::vector< Local<Value> > arguments;
             if(event->logon != NULL) {
                 callback = event->logon->GetFunction();
-                Handle<Object> jsLogonResponse = FixLoginResponse::wrapFixLoginResponse(event->logonResponse);
+                Local<Object> jsLogonResponse = FixLoginResponse::wrapFixLoginResponse(event->logonResponse);
                 arguments.push_back(jsLogonResponse);
             }
 

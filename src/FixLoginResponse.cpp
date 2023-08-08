@@ -28,7 +28,7 @@ void FixLoginResponse::Initialize(Local<Object> target) {
 
   Nan::SetPrototypeMethod(ctor, "done", done);
 
-  target->Set(Nan::New("FixLoginResponse").ToLocalChecked(), ctor->GetFunction());
+  target->Set(v8::Isolate::GetCurrent()->GetCurrentContext(), Nan::New("FixLoginResponse").ToLocalChecked(), ctor->GetFunction(v8::Isolate::GetCurrent()->GetCurrentContext()).ToLocalChecked());
 }
 
 Local<Object> FixLoginResponse::wrapFixLoginResponse(FixLoginResponse* fixLoginResponse) {
@@ -40,7 +40,7 @@ Local<Object> FixLoginResponse::wrapFixLoginResponse(FixLoginResponse* fixLoginR
 
 	Nan::SetPrototypeMethod(ctor, "done", done);
 
-	Local<Object> obj = ctor->InstanceTemplate()->NewInstance();
+	Local<Object> obj = ctor->InstanceTemplate()->NewInstance(v8::Isolate::GetCurrent()->GetCurrentContext()).ToLocalChecked();
 	//obj->SetInternalField(0, Nan::New<External>(fixLoginResponse));
 
 	fixLoginResponse->Wrap(obj);
@@ -64,7 +64,7 @@ NAN_METHOD(FixLoginResponse::done) {
 
 	FixLoginResponse* instance = Nan::ObjectWrap::Unwrap<FixLoginResponse>(info.This());
 
-	bool success = info[0]->ToBoolean()->BooleanValue();
+	bool success = info[0]->ToBoolean(info.GetIsolate())->BooleanValue(info.GetIsolate());
 
 	instance->setIsFinished(true);
 	instance->setIsLoggedOn(success);

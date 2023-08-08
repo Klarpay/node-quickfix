@@ -120,7 +120,7 @@ void FixSession::Initialize() {
 	Nan::SetAccessor(proto, Nan::New("senderSeqNum").ToLocalChecked(), getSenderSeqNum, setSenderSeqNum);
 	Nan::SetAccessor(proto, Nan::New("targetSeqNum").ToLocalChecked(), getTargetSeqNum, setTargetSeqNum);
 
-	g_Ctor.Reset(ctor->GetFunction());
+	g_Ctor.Reset(ctor->GetFunction(v8::Isolate::GetCurrent()->GetCurrentContext()).ToLocalChecked());
 }
 
 Local<Object> FixSession::wrapFixSession(FIX::Session *session) {
@@ -238,7 +238,7 @@ NAN_SETTER(FixSession::setSenderSeqNum) {
 	Nan::HandleScope scope;
 	if(value->IsNumber()) {
 		FixSession* instance = Nan::ObjectWrap::Unwrap<FixSession>(info.This());
-		instance->mSession->setNextSenderMsgSeqNum(value->Uint32Value());
+		instance->mSession->setNextSenderMsgSeqNum(value->Uint32Value(v8::Isolate::GetCurrent()->GetCurrentContext()).ToChecked());
 	}
 }
 
@@ -252,7 +252,7 @@ NAN_SETTER(FixSession::setTargetSeqNum) {
 	Nan::HandleScope scope;
 	if(value->IsNumber()) {
 		FixSession* instance = Nan::ObjectWrap::Unwrap<FixSession>(info.This());
-		instance->mSession->setNextTargetMsgSeqNum(value->Uint32Value());
+		instance->mSession->setNextTargetMsgSeqNum(value->Uint32Value(v8::Isolate::GetCurrent()->GetCurrentContext()).ToChecked());
 	}
 }
 
