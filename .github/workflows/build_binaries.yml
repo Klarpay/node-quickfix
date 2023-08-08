@@ -10,7 +10,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - run: sudo apt-get install -y libquickfix-dev clang libboost1.81-all-dev
+      - run: sudo apt-get install -y libquickfix-dev clang libboost-all-dev
       - uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
