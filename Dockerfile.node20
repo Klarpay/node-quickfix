@@ -1,0 +1,3 @@
+FROM --platform=linux/amd64 node:20
+RUN apt-get update && apt-get install -y libquickfix-dev clang libboost-all-dev
+ENV CXX=clang++

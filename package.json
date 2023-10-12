@@ -4,15 +4,16 @@
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
     "configure": "node-gyp configure",
-    "build": "node-gyp build",
+    "build": "node-pre-gyp build",
+    "publish-binary": "node-pre-gyp-github publish",
     "test": "mocha"
   },
   "binary": {
     "module_name": "NodeQuickfix",
     "module_path": "./lib/binding/{configuration}/{node_abi}-{platform}-{arch}/",
-    "remote_path": "./{module_name}/v{version}/{configuration}/",
     "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
-    "host": "https://klarpay-node-quickfix.s3-eu-central-1.amazonaws.com"
+    "host": "https://github.com/klarpay/node-quickfix/releases/download/",
+    "remote_path": "{version}"
   },
   "main": "index.js",
   "description": "This is a wrapper for the Quickfix C++ library to be used within node.js applications",
@@ -25,12 +26,12 @@
     "mocha": "^2.2.5",
     "nan": "^2.17.0",
     "node-gyp": "^9.0.0",
-    "should": "^13.2.1",
-    "aws-sdk": "2.x"
+    "node-pre-gyp-github": "^1.4.4",
+    "should": "^13.2.1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/klarpay/node-quickfix"
+    "url": "https://github.com/klarpay/node-quickfix.git"
   },
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.11"
