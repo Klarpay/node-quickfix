@@ -24,8 +24,8 @@
   "devDependencies": {
     "dateformat": "^3.0.2",
     "mocha": "^2.2.5",
-    "nan": "^2.17.0",
-    "node-gyp": "^9.0.0",
+    "nan": "^2.23.0",
+    "node-gyp": "^11.0.0",
     "node-pre-gyp-github": "^1.4.4",
     "should": "^13.2.1"
   },

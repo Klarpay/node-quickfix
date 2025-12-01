@@ -1,4 +1,8 @@
 {
+  'variables': {
+    'module_name': 'NodeQuickfix',
+    'module_path': './lib/binding/Release/'
+  },
   'targets': [
     {
       'target_name': 'NodeQuickfix',
@@ -58,7 +62,7 @@
         'include_dirs': ['src']
       },
       'cflags_cc': [
-        "-std=c++17",
+        "-std=c++20",
         "-fexceptions",
         "-fcxx-exceptions",
         "-D_LIBCPP_ENABLE_CXX17_REMOVED_FEATURES",
@@ -66,10 +70,10 @@
         "-Wno-dynamic-exception-spec",
         "-fcxx-exceptions"
       ],
-      'cflags_cc!': ['-fno-exceptions', '-fno-rtti', '-std=gnu++17'],
+      'cflags_cc!': ['-fno-exceptions', '-fno-rtti', '-std=gnu++20'],
       'xcode_settings': {
         'OTHER_CFLAGS': [
-          "-std=c++17",
+          "-std=c++20",
           "-stdlib=libc++",
           "-fexceptions",
           "-fcxx-exceptions",
